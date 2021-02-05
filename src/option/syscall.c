@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------*/
 /* Sample code of OS dependent controls for FatFs                         */
 /* (C)ChaN, 2014                                                          */
-/*   Portions COPYRIGHT 2017 STMicroelectronics                           */
+/*   Portions COPYRIGHT 2021 STMicroelectronics                           */
 /*   Portions Copyright (C) 2014, ChaN, all right reserved                */
 /*------------------------------------------------------------------------*/
 
@@ -9,7 +9,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2017 STMicroelectronics. All rights reserved.
+  * Copyright (c) 2021 STMicroelectronics. All rights reserved.
   *
   * This software component is licensed by ST under BSD 3-Clause license,
   * the "License"; You may not use this file except in compliance with the
@@ -26,7 +26,7 @@
 
 #if _FS_REENTRANT
 /*------------------------------------------------------------------------*/
-/* Create a Synchronization Object                                        */
+/* Create a Synchronization Object
 /*------------------------------------------------------------------------*/
 /* This function is called in f_mount() function to create a new
 /  synchronization object, such as semaphore and mutex. When a 0 is returned,
