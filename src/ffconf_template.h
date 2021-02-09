@@ -292,14 +292,17 @@
 /      can be opened simultaneously under file lock control. Note that the file
 /      lock control is independent of re-entrancy. */
 
-#define _FS_REENTRANT	0
-#define _USE_MUTEX	0
+#define FF_FS_REENTRANT    1  /* 0:Disable or 1:Enable */
+#define FF_FS_TIMEOUT      1000 /* Timeout period in unit of time ticks */
+#define FF_SYNC_t          osSemaphoreId_t
+
+#define FF_USE_MUTEX	0
 /* Use CMSIS-OS mutexes as _SYNC_t object instead of Semaphores */
 
-#if _FS_REENTRANT
+#if FF_FS_REENTRANT
 
 #include "cmsis_os.h"
-#define _FS_TIMEOUT		1000
+#define FF_FS_TIMEOUT		1000
 
 #if _USE_MUTEX
 
@@ -317,7 +320,7 @@
 #endif
 
 #endif
-#endif //_FS_REENTRANT
+#endif //FF_FS_REENTRANT
 /* The option _FS_REENTRANT switches the re-entrancy (thread safe) of the FatFs
 /  module itself. Note that regardless of this option, file access to different
 /  volume is always re-entrant and volume control functions, f_mount(), f_mkfs()
@@ -335,38 +338,12 @@
 /  SemaphoreHandle_t and etc. A header file for O/S definitions needs to be
 /  included somewhere in the scope of ff.h. */
 
+#if !defined(ff_memalloc) && !defined(ff_memfree)
+#define ff_memalloc  pvPortMalloc
+#define ff_memfree  vPortFree
+#endif
+
 /* #include <windows.h>	// O/S definitions  */
 
-#if _USE_LFN == 3
-
-#if !defined(ff_malloc) || !defined(ff_free)
-#include <stdlib.h>
-#endif
-
-#if !defined(ff_malloc)
-#define ff_malloc malloc
-#endif
-
-#if !defined(ff_free)
-#define ff_free free
-#endif
-
-/* by default the system malloc/free are used, but when the FreeRTOS is enabled
-/ the macros pvPortMalloc()/vportFree() to be used thus uncomment the code below
-/
-*/
-/*
-#if !defined(ff_malloc) || !defined(ff_free)
-#include "cmsis_os.h"
-#endif
-
-#if !defined(ff_malloc)
-#define ff_malloc pvPortMalloc
-#endif
-
-#if !defined(ff_free)
-#define ff_free vPortFree
-#endif
-*/
-#endif
+//#endif
 /*--- End of configuration options ---*/

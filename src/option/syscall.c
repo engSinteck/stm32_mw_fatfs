@@ -24,9 +24,9 @@
 #include "../ff.h"
 
 
-#if _FS_REENTRANT
+#if FF_FS_REENTRANT
 /*------------------------------------------------------------------------*/
-/* Create a Synchronization Object
+/* Create a Synchronization Object */
 /*------------------------------------------------------------------------*/
 /* This function is called in f_mount() function to create a new
 /  synchronization object, such as semaphore and mutex. When a 0 is returned,
@@ -111,9 +111,9 @@ int ff_req_grant (	/* 1:Got a grant to access the volume, 0:Could not get a gran
 #else
 
 #if _USE_MUTEX
-   if(osMutexAcquire(sobj, _FS_TIMEOUT) == osOK)
+   if(osMutexAcquire(sobj, FF_FS_TIMEOUT) == osOK)
 #else
-   if(osSemaphoreAcquire(sobj, _FS_TIMEOUT) == osOK)
+   if(osSemaphoreAcquire(sobj, FF_FS_TIMEOUT) == osOK)
 #endif
 
 #endif
